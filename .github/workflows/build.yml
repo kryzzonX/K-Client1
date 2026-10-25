@@ -8,11 +8,12 @@ on:
       - main
 
 jobs:
-   build:
+  build:
     runs-on: windows-latest
     defaults:
       run:
-        working-directory: k-client-launcher
+        working-directory: K LAUNCHER/k-client-launcher
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -20,7 +21,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install dependencies
         run: npm install
@@ -32,5 +33,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: K-Client-Windows-Installer
-          path: dist/*.exe
+          path: K LAUNCHER/k-client-launcher/dist/*.exe
           if-no-files-found: error
