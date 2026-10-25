@@ -1,22 +1,8 @@
-
-name: Build K LAUNCHER
-
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
-
-jobs:
-  build:
-    runs-on: windows-latest
-
-    
-
-    steps:
-      - name: Get project files
+  steps:
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -24,5 +10,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build Windows app
-        run: npm run
+      - name: Build Windows installer
+        run: npm run dist -- --win
+
+      - name: Upload installer
+        uses: actions/upload-artifact@v4
+        with:
+          name: K-Client-Windows-Installer
+          path: dist/*.exe
+          if-no-files-found: error
