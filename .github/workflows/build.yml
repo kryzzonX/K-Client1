@@ -10,9 +10,7 @@ jobs:
   build:
     runs-on: windows-latest
 
-    defaults:
-      run:
-        working-directory: k-client-launcher
+    
 
     steps:
       - name: Get project files
