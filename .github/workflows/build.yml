@@ -20,15 +20,32 @@ jobs:
         with:
           node-version: 22
 
+      - name: Find project folder
+        id: project
+        shell: pwsh
+        run: |
+          $file = Get-ChildItem -Path . -Filter package.json -Recurse |
+            Where-Object { $_.FullName -notmatch '\\node_modules\\' } |
+            Select-Object -First 1
+          if (-not $file) {
+            Write-Error "package.json was not found"
+            exit 1
+          }
+          $dir = $file.Directory.FullName
+          "project_dir=$dir" >> $env:GITHUB_OUTPUT
+          Write-Host "Project found: $dir"
+
       - name: Install dependencies
-        run: npm install --prefix "./K LAUNCHER/k-client-launcher"
+        run: npm install
+        working-directory: ${{ steps.project.outputs.project_dir }}
 
       - name: Build Windows installer
-        run: npm run dist --prefix "./K LAUNCHER/k-client-launcher" -- --win
+        run: npm run dist -- --win
+        working-directory: ${{ steps.project.outputs.project_dir }}
 
       - name: Upload installer
         uses: actions/upload-artifact@v4
         with:
           name: K-Client-Windows-Installer
-          path: "./K LAUNCHER/k-client-launcher/dist/*.exe"
+          path: "**/dist/*.exe"
           if-no-files-found: error
