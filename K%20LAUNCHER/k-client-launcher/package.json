@@ -1,0 +1,30 @@
+{
+  "name": "k-client-launcher",
+  "version": "0.1.0",
+  "description": "K Client Launcher - Windows desktop launcher starter",
+  "main": "src/main.js",
+  "author": "K Client",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --win nsis"
+  },
+  "devDependencies": {
+    "electron": "^37.2.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "fi.kclient.launcher",
+    "productName": "K Client Launcher",
+    "directories": { "output": "dist" },
+    "files": ["src/**/*", "package.json"],
+    "win": {
+      "target": ["nsis"],
+      "artifactName": "K-Client-Launcher-Setup-${version}.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
