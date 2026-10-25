@@ -33,5 +33,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: K-Client-Windows-Installer
-          path: K LAUNCHER/k-client-launcher/dist/*.exe
+          path: "K LAUNCHER/k-client-launcher/dist/*.exe"
           if-no-files-found: error
