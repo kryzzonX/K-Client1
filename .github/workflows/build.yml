@@ -12,7 +12,7 @@ jobs:
     runs-on: windows-latest
     defaults:
       run:
-        working-directory: K LAUNCHER/k-client-launcher
+        working-directory: "K LAUNCHER/k-client-launcher"
 
     steps:
       - name: Checkout
