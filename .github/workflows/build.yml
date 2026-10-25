@@ -1,4 +1,16 @@
-  steps:
+
+name: Build K Client for Windows
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
       - name: Checkout
         uses: actions/checkout@v4
 
